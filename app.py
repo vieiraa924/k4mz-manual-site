@@ -138,7 +138,49 @@ def dashboard():
     guild = requests.get(f"{API}/guilds/{GUILD_ID}?with_counts=true", headers=bot_headers(), timeout=15)
     guild_data = guild.json() if guild.status_code == 200 else None
     return render_template("dashboard.html", user=user, guild=guild_data)
+@app.route("/dashboard/welcome", methods=["GET", "POST"])
+def dashboard_welcome():
+    user = session.get("discord_user")
 
+    if not user:
+        return redirect(url_for("login", return_to="/dashboard/welcome"))
+
+    if str(user["id"]) != str(OWNER_DISCORD_ID):
+        return render_template("denied.html"), 403
+
+    channels_request = requests.get(
+        f"{API}/guilds/{GUILD_ID}/channels",
+        headers=bot_headers(),
+        timeout=15
+    )
+
+    channels = []
+    if channels_request.status_code == 200:
+        channels = [
+            c for c in channels_request.json()
+            if c.get("type") == 0
+        ]
+
+    settings = load_settings()
+
+    if request.method == "POST":
+        settings["welcome_enabled"] = request.form.get("welcome_enabled") == "on"
+        settings["welcome_channel_id"] = request.form.get(
+            "welcome_channel_id", ""
+        )
+        settings["welcome_message"] = request.form.get(
+            "welcome_message", ""
+        ).strip()
+
+        save_settings(settings)
+        return redirect(url_for("dashboard_welcome"))
+
+    return render_template(
+        "welcome.html",
+        user=user,
+        channels=channels,
+        settings=settings
+    )
 @app.get("/logout")
 def logout():
     session.clear()
