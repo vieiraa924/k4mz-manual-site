@@ -8,35 +8,226 @@
 </head>
 <body>
   <div class="dash-layout">
+
     <aside class="sidebar">
-      <div class="brand">k4mz<span>COMMAND DECK</span></div>
+      <div class="brand">
+        k4mz
+        <span>COMMAND DECK</span>
+      </div>
+
       <nav>
-        <a class="active">Overview</a>
-        <a>Welcome</a>
-        <a>Autorole</a>
-        <a>Verification</a>
-        <a>Tickets</a>
-        <a>Giveaways</a>
-        <a>Announcements</a>
-        <a>Moderation</a>
-        <a>Logs</a>
-        <a>Voice Temps</a>
-        <a>Suggestions</a>
-        <a>Bot Status</a>
-        <a>Settings</a>
+        <a class="active" href="/dashboard">◈ Overview</a>
+        <a href="#">👋 Welcome</a>
+        <a href="#">👤 Autorole</a>
+        <a href="#">✅ Verification</a>
+        <a href="#">🎫 Tickets</a>
+        <a href="#">🎉 Giveaways</a>
+        <a href="#">📢 Announcements</a>
+        <a href="#">🛡 Moderation</a>
+        <a href="#">📋 Logs</a>
+        <a href="#">🔊 Voice Temps</a>
+        <a href="#">💡 Suggestions</a>
+        <a href="#">🤖 Bot Status</a>
+        <a href="#">⚙ Settings</a>
       </nav>
-      <a class="logout" href="/logout">Logout</a>
+
+      <div class="sidebar-user">
+        <div class="sidebar-avatar">
+          {{ (user.global_name or user.username)[0]|upper }}
+        </div>
+        <div>
+          <strong>{{ user.global_name or user.username }}</strong>
+          <span>OWNER</span>
+        </div>
+      </div>
+
+      <a class="logout" href="/logout">↪ Logout</a>
     </aside>
 
     <main class="dash-main">
-      <div class="pill">PRIVATE ADMIN PANEL</div>
-      <h1>Good evening,<br><em>operator.</em></h1>
-      <div class="stats-grid">
-        <div class="stat"><span>Total members</span><strong>{{ guild.approximate_member_count if guild else '—' }}</strong></div>
-        <div class="stat"><span>Online now</span><strong>{{ guild.approximate_presence_count if guild else '—' }}</strong></div>
-        <div class="stat"><span>Bot status</span><strong>Online</strong></div>
-        <div class="stat"><span>Verification</span><strong>Enabled</strong></div>
-      </div>
+
+      <header class="dash-header">
+        <div>
+          <div class="pill">PRIVATE ADMIN PANEL</div>
+          <h1>Good evening,<br><em>operator.</em></h1>
+          <p class="dash-subtitle">
+            Everything important about your Discord server in one place.
+          </p>
+        </div>
+
+        <div class="bot-online">
+          <span></span>
+          BOT ONLINE
+        </div>
+      </header>
+
+      <section class="stats-grid">
+        <div class="stat">
+          <div class="stat-top">
+            <span>Total members</span>
+            <b>👥</b>
+          </div>
+          <strong>
+            {{ guild.approximate_member_count if guild else '—' }}
+          </strong>
+          <small>members in server</small>
+        </div>
+
+        <div class="stat">
+          <div class="stat-top">
+            <span>Online now</span>
+            <b>●</b>
+          </div>
+          <strong>
+            {{ guild.approximate_presence_count if guild else '—' }}
+          </strong>
+          <small>currently online</small>
+        </div>
+
+        <div class="stat">
+          <div class="stat-top">
+            <span>Bot status</span>
+            <b>🤖</b>
+          </div>
+          <strong class="green-text">Online</strong>
+          <small>connected and responding</small>
+        </div>
+
+        <div class="stat">
+          <div class="stat-top">
+            <span>Verification</span>
+            <b>✓</b>
+          </div>
+          <strong class="pink-text">Enabled</strong>
+          <small>Turnstile + Discord OAuth</small>
+        </div>
+      </section>
+
+      <section class="dashboard-grid">
+
+        <div class="dash-panel">
+          <div class="panel-title">
+            <div>
+              <span>SERVER</span>
+              <h2>Server overview</h2>
+            </div>
+            <div class="panel-icon">◈</div>
+          </div>
+
+          <div class="overview-list">
+            <div>
+              <span>Server name</span>
+              <strong>{{ guild.name if guild else 'Unavailable' }}</strong>
+            </div>
+
+            <div>
+              <span>Server ID</span>
+              <strong>{{ guild.id if guild else '—' }}</strong>
+            </div>
+
+            <div>
+              <span>Members</span>
+              <strong>{{ guild.approximate_member_count if guild else '—' }}</strong>
+            </div>
+
+            <div>
+              <span>Online</span>
+              <strong>{{ guild.approximate_presence_count if guild else '—' }}</strong>
+            </div>
+          </div>
+        </div>
+
+        <div class="dash-panel">
+          <div class="panel-title">
+            <div>
+              <span>SECURITY</span>
+              <h2>Protection status</h2>
+            </div>
+            <div class="panel-icon">🛡</div>
+          </div>
+
+          <div class="security-item">
+            <div>
+              <strong>Discord OAuth</strong>
+              <span>Login authentication</span>
+            </div>
+            <b class="status-good">ACTIVE</b>
+          </div>
+
+          <div class="security-item">
+            <div>
+              <strong>Cloudflare Turnstile</strong>
+              <span>Human verification</span>
+            </div>
+            <b class="status-good">ACTIVE</b>
+          </div>
+
+          <div class="security-item">
+            <div>
+              <strong>Verified Role</strong>
+              <span>Automatic role assignment</span>
+            </div>
+            <b class="status-good">ACTIVE</b>
+          </div>
+
+          <div class="security-item">
+            <div>
+              <strong>Admin Access</strong>
+              <span>Owner ID whitelist</span>
+            </div>
+            <b class="status-good">ACTIVE</b>
+          </div>
+        </div>
+
+      </section>
+
+      <section class="dash-panel quick-panel">
+        <div class="panel-title">
+          <div>
+            <span>QUICK ACCESS</span>
+            <h2>Command deck</h2>
+          </div>
+        </div>
+
+        <div class="quick-grid">
+          <a href="#">
+            <b>👋</b>
+            <strong>Welcome</strong>
+            <span>Edit welcome settings</span>
+          </a>
+
+          <a href="#">
+            <b>✅</b>
+            <strong>Verification</strong>
+            <span>Manage verified access</span>
+          </a>
+
+          <a href="#">
+            <b>🎫</b>
+            <strong>Tickets</strong>
+            <span>Configure support system</span>
+          </a>
+
+          <a href="#">
+            <b>🎉</b>
+            <strong>Giveaways</strong>
+            <span>Create giveaways</span>
+          </a>
+
+          <a href="#">
+            <b>🔊</b>
+            <strong>Voice Temps</strong>
+            <span>Temporary voice rooms</span>
+          </a>
+
+          <a href="#">
+            <b>📋</b>
+            <strong>Logs</strong>
+            <span>View server activity</span>
+          </a>
+        </div>
+      </section>
+
     </main>
   </div>
 </body>
