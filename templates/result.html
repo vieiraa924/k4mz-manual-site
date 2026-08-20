@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>{{ title }} • k4mz</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <main class="verify-wrap">
+    <section class="verify-card center">
+      <div class="result-icon {{ 'success' if ok else 'error' }}">{{ '✓' if ok else '!' }}</div>
+      <div class="pill">{{ 'ACCESS GRANTED' if ok else 'ACCESS BLOCKED' }}</div>
+      <h1>{{ title }}</h1>
+      <p>{{ message }}</p>
+      <a class="primary-btn" href="/">Return →</a>
+    </section>
+  </main>
+</body>
+</html>

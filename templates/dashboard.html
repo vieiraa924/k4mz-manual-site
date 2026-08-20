@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Dashboard • k4mz</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <div class="dash-layout">
+    <aside class="sidebar">
+      <div class="brand">k4mz<span>COMMAND DECK</span></div>
+      <nav>
+        <a class="active">Overview</a>
+        <a>Welcome</a>
+        <a>Autorole</a>
+        <a>Verification</a>
+        <a>Tickets</a>
+        <a>Giveaways</a>
+        <a>Announcements</a>
+        <a>Moderation</a>
+        <a>Logs</a>
+        <a>Voice Temps</a>
+        <a>Suggestions</a>
+        <a>Bot Status</a>
+        <a>Settings</a>
+      </nav>
+      <a class="logout" href="/logout">Logout</a>
+    </aside>
+
+    <main class="dash-main">
+      <div class="pill">PRIVATE ADMIN PANEL</div>
+      <h1>Good evening,<br><em>operator.</em></h1>
+      <div class="stats-grid">
+        <div class="stat"><span>Total members</span><strong>{{ guild.approximate_member_count if guild else '—' }}</strong></div>
+        <div class="stat"><span>Online now</span><strong>{{ guild.approximate_presence_count if guild else '—' }}</strong></div>
+        <div class="stat"><span>Bot status</span><strong>Online</strong></div>
+        <div class="stat"><span>Verification</span><strong>Enabled</strong></div>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

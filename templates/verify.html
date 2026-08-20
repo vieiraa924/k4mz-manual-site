@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Verify • k4mz</title>
+  <link rel="stylesheet" href="/static/style.css">
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+</head>
+<body>
+  <header class="top">
+    <div class="brand">k4mz<span>COMMAND DECK</span></div>
+    <div class="status"><i></i> AUTHENTICATED</div>
+  </header>
+
+  <main class="verify-wrap">
+    <section class="verify-card">
+      <div class="pill">STEP 2 / HUMAN CHECK</div>
+      <h1>One last<br><em>check.</em></h1>
+      <p>Logged in as <strong>{{ user.global_name or user.username }}</strong>.</p>
+
+      <form method="post" action="/verify">
+        <div class="captcha-wrap">
+          <div class="cf-turnstile" data-sitekey="{{ turnstile_site_key }}" data-theme="dark"></div>
+        </div>
+        <button class="primary-btn full" type="submit">Verify account →</button>
+      </form>
+
+      <a class="switch-account" href="/logout">Use another Discord account</a>
+    </section>
+  </main>
+</body>
+</html>
