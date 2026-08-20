@@ -26,6 +26,32 @@ from pathlib import Path
 
 SETTINGS_FILE = Path("/home/k4mzrl/k4mz-manual-site/settings.json")
 
+def load_settings():
+    if SETTINGS_FILE.exists():
+        try:
+            return json.loads(
+                SETTINGS_FILE.read_text(encoding="utf-8")
+            )
+        except:
+            pass
+
+    return {
+        "welcome_enabled": True,
+        "welcome_channel_id": "",
+        "welcome_message": "Bem-vindo {mention} ao servidor!"
+    }
+
+def save_settings(data):
+    SETTINGS_FILE.write_text(
+        json.dumps(data, indent=2, ensure_ascii=False),
+        encoding="utf-8"
+    )
+
+import json
+from pathlib import Path
+
+SETTINGS_FILE = Path("/home/k4mzrl/k4mz-manual-site/settings.json")
+
 def bot_headers():
     return {"Authorization": f"Bot {BOT_TOKEN}", "Content-Type": "application/json"}
 
