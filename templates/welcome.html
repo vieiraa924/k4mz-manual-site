@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Welcome • k4mz</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body>
+<div class="dash-layout">
+
+  <aside class="sidebar">
+    <div class="brand">
+      k4mz
+      <span>COMMAND DECK</span>
+    </div>
+
+    <nav>
+      <a href="/dashboard">◈ Overview</a>
+      <a class="active" href="/dashboard/welcome">👋 Welcome</a>
+      <a href="#">👤 Autorole</a>
+      <a href="#">✅ Verification</a>
+      <a href="#">🎫 Tickets</a>
+      <a href="#">🎉 Giveaways</a>
+      <a href="#">📢 Announcements</a>
+      <a href="#">🛡 Moderation</a>
+      <a href="#">📋 Logs</a>
+      <a href="#">🔊 Voice Temps</a>
+      <a href="#">💡 Suggestions</a>
+      <a href="#">🤖 Bot Status</a>
+      <a href="#">⚙ Settings</a>
+    </nav>
+
+    <a class="logout" href="/logout">↪ Logout</a>
+  </aside>
+
+  <main class="dash-main">
+
+    <div class="pill">CONFIGURE / COMMUNITY</div>
+
+    <h1>
+      Welcome<br>
+      <em>flow.</em>
+    </h1>
+
+    <p class="dash-subtitle">
+      Control what happens when a new member joins your server.
+    </p>
+
+    <form method="post">
+
+      <section class="dash-panel">
+
+        <div class="panel-title">
+          <div>
+            <span>WELCOME SYSTEM</span>
+            <h2>Configuration</h2>
+          </div>
+          <div class="panel-icon">👋</div>
+        </div>
+
+        <div class="settings-row">
+          <div>
+            <strong>Enable welcome</strong>
+            <span>Send a welcome message when a member joins.</span>
+          </div>
+
+          <label class="switch-control">
+            <input
+              type="checkbox"
+              name="welcome_enabled"
+              {% if settings.welcome_enabled %}checked{% endif %}
+            >
+            <span></span>
+          </label>
+        </div>
+
+        <div class="settings-field">
+          <label>Welcome channel</label>
+
+          <select name="welcome_channel_id">
+            <option value="">Choose a channel</option>
+
+            {% for channel in channels %}
+            <option
+              value="{{ channel.id }}"
+              {% if settings.welcome_channel_id|string == channel.id|string %}
+              selected
+              {% endif %}
+            >
+              # {{ channel.name }}
+            </option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <div class="settings-field">
+          <label>Welcome message</label>
+
+          <textarea
+            name="welcome_message"
+            rows="5"
+            placeholder="Bem-vindo {mention} ao servidor!"
+          >{{ settings.welcome_message }}</textarea>
+
+          <small>
+            Podes usar <b>{mention}</b>, <b>{username}</b> e
+            <b>{server}</b>.
+          </small>
+        </div>
+
+        <button class="primary-btn" type="submit">
+          Save welcome settings
+        </button>
+
+      </section>
+
+    </form>
+
+  </main>
+</div>
+</body>
+</html>
