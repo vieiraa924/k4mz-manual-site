@@ -21,6 +21,11 @@ TURNSTILE_SITE_KEY = os.getenv("TURNSTILE_SITE_KEY", "")
 TURNSTILE_SECRET_KEY = os.getenv("TURNSTILE_SECRET_KEY", "")
 OWNER_DISCORD_ID = os.getenv("OWNER_DISCORD_ID", "")
 
+import json
+from pathlib import Path
+
+SETTINGS_FILE = Path("/home/k4mzrl/k4mz-manual-site/settings.json")
+
 def bot_headers():
     return {"Authorization": f"Bot {BOT_TOKEN}", "Content-Type": "application/json"}
 
